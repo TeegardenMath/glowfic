@@ -89,13 +89,13 @@ RSpec.describe PostsController, 'POST create' do
         },
       }
       expect(response).to render_template(:preview)
-      expect(assigns(:written)).to be_an_instance_of(Post)
+      expect(assigns(:written)).to be_an_instance_of(Reply)
       expect(assigns(:written)).to be_a_new_record
       expect(assigns(:written).user).to eq(user)
       expect(assigns(:written).character).to eq(char1)
       expect(assigns(:written).icon).to eq(icon)
       expect(assigns(:written).character_alias).to eq(calias)
-      expect(assigns(:post)).to eq(assigns(:written))
+      expect(assigns(:post).written).to eq(assigns(:written))
       expect(assigns(:page_title)).to eq('Previewing: test')
       expect(assigns(:author_ids)).to match_array([user.id, coauthor.id])
 
@@ -133,7 +133,7 @@ RSpec.describe PostsController, 'POST create' do
       login_as(user)
       post :create, params: { button_preview: true }
       expect(response).to render_template(:preview)
-      expect(assigns(:written)).to be_an_instance_of(Post)
+      expect(assigns(:written)).to be_an_instance_of(Reply)
       expect(assigns(:written)).to be_a_new_record
       expect(assigns(:written).user).to eq(user)
     end
@@ -395,7 +395,7 @@ RSpec.describe PostsController, 'POST create' do
     expect(assigns(:post)).not_to be_persisted
     expect(assigns(:post).user).to eq(user)
     expect(assigns(:post).subject).to eq('asubjct')
-    expect(assigns(:post).content).to eq('acontnt')
+    expect(assigns(:post).written.content).to eq('acontnt')
     expect(assigns(:page_title)).to eq('New Post')
     expect(assigns(:author_ids)).to match_array([user.id, coauthor.id])
 
@@ -473,13 +473,13 @@ RSpec.describe PostsController, 'POST create' do
     expect(post.user).to eq(user)
     expect(post.last_user).to eq(user)
     expect(post.subject).to eq('asubjct')
-    expect(post.content).to eq('acontnt')
+    expect(post.written.content).to eq('acontnt')
     expect(post.description).to eq('adesc')
     expect(post.board).to eq(board)
     expect(post.section).to eq(section)
-    expect(post.character_id).to eq(char.id)
-    expect(post.icon_id).to eq(icon.id)
-    expect(post.character_alias_id).to eq(calias.id)
+    expect(post.written.character_id).to eq(char.id)
+    expect(post.written.icon_id).to eq(icon.id)
+    expect(post.written.character_alias_id).to eq(calias.id)
     expect(post).to be_privacy_access_list
     expect(post.viewers).to match_array([viewer])
     expect(post.reload).to be_visible_to(viewer)
