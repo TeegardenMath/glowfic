@@ -436,15 +436,17 @@ RSpec.describe PostsController, 'PUT update' do
         button_preview: true,
         post: {
           subject: 'test',
-          content: 'orign',
-          character_id: char1.id,
-          icon_id: icon.id,
-          character_alias_id: calias.id,
           setting_ids: [setting1.id, "_ #{setting2.name}", '_other'],
           content_warning_ids: [warning1.id, "_#{warning2.name}", '_other'],
           label_ids: [label1.id, "_#{label2.name}", '_other'],
           unjoined_author_ids: [coauthor.id],
           viewer_ids: [viewer.id],
+        },
+        reply: {
+          content: 'orign',
+          character_id: char1.id,
+          icon_id: icon.id,
+          character_alias_id: calias.id,
         },
       }
       expect(response).to render_template(:preview)
@@ -879,20 +881,22 @@ RSpec.describe PostsController, 'PUT update' do
       put :update, params: {
         id: post.id,
         post: {
-          content: newcontent,
           subject: newsubj,
           description: 'desc',
           board_id: board.id,
           section_id: section.id,
-          character_id: char.id,
-          character_alias_id: calias.id,
-          icon_id: icon.id,
           privacy: :access_list,
           viewer_ids: [viewer.id],
           setting_ids: [setting.id],
           content_warning_ids: [warning.id],
           label_ids: [tag.id],
           unjoined_author_ids: [coauthor.id],
+        },
+        reply: {
+          content: newcontent,
+          character_id: char.id,
+          character_alias_id: calias.id,
+          icon_id: icon.id,
         },
       }
       expect(response).to redirect_to(post_url(post))
@@ -927,7 +931,7 @@ RSpec.describe PostsController, 'PUT update' do
       post = create(:post, user: user, authors: [user, coauthor], authors_locked: true)
       put :update, params: {
         id: post.id,
-        post: {
+        reply: {
           content: "newtext",
         },
       }
@@ -1009,6 +1013,8 @@ RSpec.describe PostsController, 'PUT update' do
         id: post.id,
         post: {
           private_note: 'look a note!',
+        },
+        reply: {
           content: 'new',
         },
       }
