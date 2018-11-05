@@ -450,9 +450,8 @@ RSpec.describe PostsController, 'PUT update' do
         },
       }
       expect(response).to render_template(:preview)
-      expect(assigns(:written)).to be_an_instance_of(Reply)
-      expect(assigns(:written)).not_to be_a_new_record
-      expect(assigns(:post).written).to eq(assigns(:written))
+      expect(assigns(:post).written).to be_an_instance_of(Reply)
+      expect(assigns(:post).written).not_to be_a_new_record
       expect(assigns(:post).user).to eq(user)
       expect(assigns(:post).subject).to eq('test')
       expect(assigns(:post).written.content).to eq('orign')
@@ -512,7 +511,7 @@ RSpec.describe PostsController, 'PUT update' do
       post = create(:post, user: user)
       put :update, params: { id: post.id, button_preview: true }
       expect(response).to render_template(:preview)
-      expect(assigns(:written).user).to eq(user)
+      expect(assigns(:post).written.user).to eq(user)
     end
 
     it "saves a draft" do
