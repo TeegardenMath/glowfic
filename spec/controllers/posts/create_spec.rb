@@ -433,6 +433,10 @@ RSpec.describe PostsController, 'POST create' do
     expect(PostTag.count).to eq(0)
   end
 
+  skip "handles invalid first reply" do
+    # TODO: Add a test for this if it becomes possible to have an invalid reply here
+  end
+
   it "creates a post" do
     user = create(:user)
     login_as(user)
