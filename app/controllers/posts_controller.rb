@@ -147,7 +147,7 @@ class PostsController < WritableController
       @post.save!
     rescue ActiveRecord::RecordInvalid
       flash.now[:error] = {
-        array: @post.errors.full_messages,
+        array: @post.errors.full_messages + @post.written.errors.full_messages,
         message: "Your post could not be saved because of the following problems:",
       }
       editor_setup
@@ -243,7 +243,7 @@ class PostsController < WritableController
       end
     rescue ActiveRecord::RecordInvalid
       flash.now[:error] = {
-        array: @post.errors.full_messages,
+        array: @post.errors.full_messages + @post.written.errors.full_messages,
         message: "Your post could not be saved because of the following problems:",
       }
       @audits = { post: @post.audits.count }
