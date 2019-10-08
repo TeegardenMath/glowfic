@@ -309,10 +309,10 @@ class CharactersController < ApplicationController
       where_calc << "screenname LIKE ?" if params[:search_screenname].present?
       where_calc << "template_name LIKE ?" if params[:search_nickname].present?
 
-      matches = @search_results.where(where_calc.join(' OR '), *(['%' + params[:name].to_s + '%'] * where_calc.length))
+      matches = @search_results.where(where_calc.join(' OR '), *(["%#{params[:name]}%"] * where_calc.length))
 
       if params[:search_aliases].present?
-        character_ids = CharacterAlias.where('name LIKE ?', params[:alias]).pluck(:character_id)
+        character_ids = CharacterAlias.where('name LIKE ?', "%#{params[:name]}%").pluck(:character_id)
         @search_results = matches.or(@search_results.where(id: character_ids))
       else
         @search_results = matches
