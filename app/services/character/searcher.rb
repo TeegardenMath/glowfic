@@ -13,7 +13,7 @@ class Character::Searcher < Generic::Searcher
     search_settings(params[:setting_id]) if params[:setting_id].present?
     search_names(params) if params[:name].present?
     select_templates(params[:author_id]) if params[:author_id].present? && params[:template_id].blank?
-    @search_results = @search_results.where('pb LIKE ?', params[:pb]) if params[:pb].present?
+    @search_results = @search_results.where('pb LIKE ?', "%#{params[:pb]}%") if params[:pb].present?
     @search_results.ordered.paginate(page: page, per_page: 25) unless errors.present?
     @search_results
   end
