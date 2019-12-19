@@ -873,6 +873,7 @@ RSpec.describe PostsController, 'PUT update' do
       coauthor = create(:user)
 
       post.reload
+      post.written.reload
       expect(post.tagging_authors).to match_array([user, removed_author, joined_author])
       expect(post.joined_authors).to match_array([user, joined_author])
       expect(post.viewers).to be_empty
