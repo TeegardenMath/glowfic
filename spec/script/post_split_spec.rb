@@ -54,9 +54,9 @@ RSpec.describe "post_split" do # rubocop:disable RSpec/DescribeClass
     100.times { |i| create(:reply, post: post, user: i.even? ? user : coauthor) }
     create(:reply, post: post, user: new_user)
 
-    previous = post.replies.find_by(reply_order: 49)
-    reply = post.replies.find_by(reply_order: 50)
-    next_reply = post.replies.find_by(reply_order: 51)
+    previous = post.replies.find_by(reply_order: 50)
+    reply = post.replies.find_by(reply_order: 51)
+    next_reply = post.replies.find_by(reply_order: 52)
     last = post.replies.last
 
     expect(STDIN).to receive(:gets).and_return(title)
@@ -94,7 +94,7 @@ RSpec.describe "post_split" do # rubocop:disable RSpec/DescribeClass
     other_post = create(:post, num_replies: 10)
 
     expect(STDIN).to receive(:gets).and_return(title)
-    expect(STDIN).to receive(:gets).and_return(post.replies.find_by(reply_order: 5).id.to_s)
+    expect(STDIN).to receive(:gets).and_return(post.replies.find_by(reply_order: 6).id.to_s)
     expect { split_post }.to change { Post.count }.by(1).and change { Reply.count }.by(-1)
 
     new_post = Post.last
