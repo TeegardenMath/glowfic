@@ -128,6 +128,6 @@ RSpec.describe RepliesController, 'DELETE destroy' do
     delete :destroy, params: { id: reply.id }
     expect(response).to redirect_to(reply_url(reply, anchor: "reply-#{reply.id}"))
     expect(flash[:error]).to eq({ message: "Reply could not be deleted.", array: [] })
-    expect(post.reload.replies).to eq([post.written, reply])
+    expect(post.reload.replies).to eq([reply])
   end
 end
