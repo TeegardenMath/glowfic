@@ -333,8 +333,8 @@ RSpec.describe TagsController do
 
       allow(Tag).to receive(:find_by).and_call_original
       allow(Tag).to receive(:find_by).with(id: tag.id.to_s).and_return(tag)
-      allow(tag).to receive(:destroy!).and_raise(ActiveRecord::RecordNotDestroyed, 'fake error')
-      expect(tag).to receive(:destroy!)
+      allow(tag).to receive(:destroy).and_return(false)
+      expect(tag).to receive(:destroy)
 
       delete :destroy, params: { id: tag.id }
 
