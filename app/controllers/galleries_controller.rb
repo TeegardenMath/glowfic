@@ -110,6 +110,7 @@ class GalleriesController < UploadingController
       icon_ids -= @gallery.icons.ids
       icons = Icon.where(id: icon_ids, user_id: current_user.id)
       @gallery.icons += icons
+
       flash[:success] = "Icons added to gallery successfully."
       redirect_to @gallery and return
     else
@@ -180,6 +181,7 @@ class GalleriesController < UploadingController
 
   def add_new_icons
     @icons = (params[:icons] || []).reject { |icon| icon.values.all?(&:blank?) }
+
     if @icons.empty?
       flash.now[:error] = "You have to enter something."
       render :add and return
