@@ -59,16 +59,7 @@ class GalleriesController < UploadingController
       return unless find_user
       @page_title = 'Galleryless Icons'
     else
-      @gallery = Gallery.find_by_id(params[:id])
-      unless @gallery
-        flash[:error] = "Gallery could not be found."
-        if logged_in?
-          redirect_to user_galleries_path(current_user) and return
-        else
-          redirect_to root_path and return
-        end
-      end
-
+      return unless find_model
       @user = @gallery.user
       @page_title = @gallery.name + ' (Gallery)'
       @meta_og = og_data
