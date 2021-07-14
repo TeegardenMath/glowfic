@@ -94,9 +94,10 @@ class GalleriesController < UploadingController
         @gallery.save!
       end
     rescue ActiveRecord::RecordInvalid
-      flash.now[:error] = {}
-      flash.now[:error][:message] = "Gallery could not be saved."
-      flash.now[:error][:array] = @gallery.errors.full_messages
+      flash.now[:error] = {
+        message: "Gallery could not be saved.",
+        array: @gallery.errors.full_messages,
+      }
       @page_title = 'Edit Gallery: ' + @gallery.name_was
       use_javascript('galleries/uploader')
       use_javascript('galleries/edit')
@@ -173,9 +174,10 @@ class GalleriesController < UploadingController
     begin
       @gallery.destroy!
     rescue ActiveRecord::RecordNotDestroyed
-      flash[:error] = {}
-      flash[:error][:message] = "Gallery could not be deleted."
-      flash[:error][:array] = @gallery.errors.full_messages
+      flash[:error] = {
+        message: "Gallery could not be deleted.",
+        array: @gallery.errors.full_messages,
+      }
       redirect_to @gallery
     else
       flash[:success] = "Gallery deleted successfully."
