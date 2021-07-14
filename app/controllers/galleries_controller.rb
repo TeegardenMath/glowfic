@@ -170,7 +170,8 @@ class GalleriesController < UploadingController
 
   def find_user
     if params[:user_id].present?
-      unless (@user = User.active.full.find_by_id(params[:user_id]))
+      @user = User.active.full.find_by(id: params[:user_id])
+      unless @user
         flash[:error] = 'User could not be found.'
         redirect_to root_path
       end
