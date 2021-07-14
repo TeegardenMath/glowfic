@@ -142,11 +142,8 @@ class GalleriesController < UploadingController
   def find_model
     unless (@gallery = Gallery.find_by_id(params[:id]))
       flash[:error] = "Gallery could not be found."
-      if logged_in?
-        redirect_to user_galleries_path(current_user) and return
-      else
-        redirect_to root_path and return
-      end
+      redirect_to logged_in? ? user_galleries_path(current_user) : root_path
+      return false
     end
     true
   end
@@ -154,7 +151,7 @@ class GalleriesController < UploadingController
   def require_edit_permission
     unless @gallery.user_id == current_user.id
       flash[:error] = "That is not your gallery."
-      redirect_to user_galleries_path(current_user) and return
+      redirect_to user_galleries_path(current_user)
     end
   end
 
