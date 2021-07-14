@@ -222,16 +222,28 @@ class GalleriesController < UploadingController
       render :add and return
     end
 
-    if icons.all?(&:save)
+    errors = []
+    icons.each_with_index do |icon, index|
+      if icon.save
+        @gallery.icons << icon if @gallery
+      else
+        errors += icon.errors.full_messages.map { |m| "Icon #{index + 1}: #{m.downcase}" }
+      end
+    end
+
+    if errors.present?
+      flash.now[:error] = {
+        message: "Some of your icons could not be saved.",
+        array: errors,
+      }
+      render :add
+    else
       flash[:success] = "Icons saved successfully."
       if @gallery
-        icons.each { |icon| @gallery.icons << icon }
-        redirect_to @gallery and return
+        redirect_to @gallery
+      else
+        redirect_to user_gallery_path(id: 0, user: current_user)
       end
-      redirect_to user_gallery_path(id: 0, user_id: current_user.id)
-    else
-      flash.now[:error] = "Your icons could not be saved."
-      render :add
     end
   end
 
