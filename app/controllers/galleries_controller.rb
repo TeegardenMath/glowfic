@@ -114,14 +114,10 @@ class GalleriesController < UploadingController
 
   def icon
     if params[:image_ids].present?
-      unless @gallery # gallery required for adding icons from other galleries
-        flash[:error] = "Gallery could not be found."
-        redirect_to user_galleries_path(current_user) and return
-      end
+      return unless find_model # gallery required for adding icons from other galleries
 
       icon_ids = params[:image_ids].split(',').map(&:to_i).reject(&:zero?)
-      icon_ids -= @gallery.icons.pluck(:id)
-      icons = Icon.where(id: icon_ids, user_id: current_user.id)
+      icons = Icon.where(id: icon_ids, user_id: current_user.id).where.not(@gallery.icon.ids)
       @gallery.icons += icons
       flash[:success] = "Icons added to gallery successfully."
       redirect_to @gallery and return
