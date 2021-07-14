@@ -882,7 +882,7 @@ RSpec.describe GalleriesController do
         post :icon, params: { id: gallery.id, icons: icons }
 
         expect(flash[:error][:message]).to eq('Your icons could not be saved.')
-        expect(flash[:error][:array]).to eq(['Icon 1 could not be saved.'])
+        expect(flash[:error][:array]).to eq(['Icon 1: could not be saved'])
 
         gallery.reload
         expect(gallery.icons).to be_empty
