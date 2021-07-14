@@ -204,7 +204,7 @@ class GalleriesController < UploadingController
 
     icons = @icons.map { |hash| Icon.new(icon_params(hash.except('filename', 'file')).merge(user: current_user)) }
 
-    if icons.any?{ |i| !i.valid? }
+    if icons.any? { |i| !i.valid? }
       flash.now[:error] = {
         message: "Your icons could not be saved.",
         array: []
@@ -221,12 +221,11 @@ class GalleriesController < UploadingController
 
     errors = []
     icons.each_with_index do |icon, index|
-      if icon.save
-        @gallery.icons << icon if @gallery
-      else
-        errors += icon.get_errors(index)
-      end
+      next if icon.save
+      errors += icon.get_errors(index)
     end
+
+    @gallery.icons += icons.select(&:persisted?) if @gallery
 
     if errors.present?
       flash.now[:error] = {
