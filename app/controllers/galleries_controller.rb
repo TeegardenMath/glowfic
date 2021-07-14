@@ -235,11 +235,7 @@ class GalleriesController < UploadingController
       render :add
     else
       flash[:success] = "Icons saved successfully."
-      if @gallery
-        redirect_to @gallery
-      else
-        redirect_to user_gallery_path(id: 0, user: current_user)
-      end
+      redirect_to @gallery ? @gallery : user_gallery_path(id: 0, user_id: current_user.id)
     end
   end
 
