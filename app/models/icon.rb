@@ -31,6 +31,11 @@ class Icon < ApplicationRecord
     s3_key.present?
   end
 
+  def get_errors(index=nil)
+    prefix = index ? "Icon #{index + 1}: " : ''
+    errors.full_messages.map { |m| prefix + m.downcase }
+  end
+
   private
 
   def url_is_url
@@ -76,11 +81,6 @@ class Icon < ApplicationRecord
     return unless saved_change_to_url? || saved_change_to_keyword?
     post_ids = (Post.where(icon_id: id).pluck(:id) + Reply.where(icon_id: id).select(:post_id).distinct.pluck(:post_id)).uniq
     post_ids.each { |id| GenerateFlatPostJob.enqueue(id) }
-  end
-
-  def get_errors(index=nil)
-    prefix = index ? "Icon #{index + 1}: " : ''
-    errors.full_messages.map { |m| prefix + m.downcase }
   end
 
   class UploadError < RuntimeError
