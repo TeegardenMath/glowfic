@@ -197,7 +197,7 @@ class GalleriesController < UploadingController
       render :add
     else
       flash[:success] = "Icons saved successfully."
-      redirect_to @gallery || user_gallery_path(id: 0, user_id: current_user.id)
+      redirect_to gallery_or_galleryless_path(@gallery)
     end
   end
 
@@ -232,6 +232,10 @@ class GalleriesController < UploadingController
       title: title.join(' » '),
       description: desc.join("\n"),
     }
+  end
+
+  def gallery_or_galleryless_path(gallery)
+    gallery ? gallery_path(gallery) : user_gallery_path(id: 0, user_id: current_user.id)
   end
 
   def permitted_params
