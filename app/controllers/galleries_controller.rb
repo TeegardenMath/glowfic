@@ -189,7 +189,7 @@ class GalleriesController < UploadingController
 
     adder = Icon::Adder.new(@icons, gallery: @gallery)
     adder.add(user: current_user)
-    @icons = adder.icons
+    @icons = adder.icon_hashes
 
     if adder.errors.present?
       flash.now[:error] = {
