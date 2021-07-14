@@ -78,6 +78,11 @@ class Icon < ApplicationRecord
     post_ids.each { |id| GenerateFlatPostJob.enqueue(id) }
   end
 
+  def get_errors(index=nil)
+    prefix = index ? "Icon #{index + 1}: " : ''
+    errors.full_messages.map { |m| prefix + m.downcase }
+  end
+
   class UploadError < RuntimeError
   end
 end
