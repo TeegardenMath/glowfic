@@ -38,6 +38,20 @@ ActiveRecord::Schema.define(version: 2022_10_13_004257) do
     t.index ["user_id", "user_type"], name: "user_index"
   end
 
+  create_table "block_versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.jsonb "object"
+    t.jsonb "object_changes"
+    t.string "comment"
+    t.string "ip"
+    t.string "request_uuid"
+    t.datetime "created_at"
+    t.index ["item_id"], name: "index_block_versions_on_item_id"
+  end
+
   create_table "blocks", force: :cascade do |t|
     t.integer "blocking_user_id", null: false
     t.integer "blocked_user_id", null: false
@@ -112,6 +126,20 @@ ActiveRecord::Schema.define(version: 2022_10_13_004257) do
     t.datetime "updated_at"
     t.index ["character_id"], name: "index_character_tags_on_character_id"
     t.index ["tag_id"], name: "index_character_tags_on_tag_id"
+  end
+
+  create_table "character_versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.jsonb "object"
+    t.jsonb "object_changes"
+    t.string "comment"
+    t.string "ip"
+    t.string "request_uuid"
+    t.datetime "created_at"
+    t.index ["item_id"], name: "index_character_versions_on_item_id"
   end
 
   create_table "characters", id: :serial, force: :cascade do |t|
@@ -301,6 +329,20 @@ ActiveRecord::Schema.define(version: 2022_10_13_004257) do
     t.index ["tag_id"], name: "index_post_tags_on_tag_id"
   end
 
+  create_table "post_versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.jsonb "object"
+    t.jsonb "object_changes"
+    t.string "comment"
+    t.string "ip"
+    t.string "request_uuid"
+    t.datetime "created_at"
+    t.index ["item_id"], name: "index_post_versions_on_item_id"
+  end
+
   create_table "post_viewers", id: :serial, force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "user_id", null: false
@@ -384,6 +426,22 @@ ActiveRecord::Schema.define(version: 2022_10_13_004257) do
     t.datetime "updated_at"
     t.integer "character_alias_id"
     t.index ["post_id", "user_id"], name: "index_reply_drafts_on_post_id_and_user_id"
+  end
+
+  create_table "reply_versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.jsonb "object"
+    t.jsonb "object_changes"
+    t.string "comment"
+    t.string "ip"
+    t.string "request_uuid"
+    t.integer "post_id", null: false
+    t.datetime "created_at"
+    t.index ["item_id"], name: "index_reply_versions_on_item_id"
+    t.index ["post_id"], name: "index_reply_versions_on_post_id"
   end
 
   create_table "report_views", id: :serial, force: :cascade do |t|
