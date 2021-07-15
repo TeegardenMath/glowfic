@@ -254,7 +254,7 @@ class PostsController < WritableController
         message: "Post could not be updated because of the following problems:",
         array: @post.errors.full_messages,
       }
-      @audits = { post: @post.audits.count }
+      @audits = { post: @post.audits.count + @post.versions.count }
       editor_setup
       render :edit
     else
@@ -351,7 +351,7 @@ class PostsController < WritableController
 
     @written = @post
 
-    @audits = { post: @post.audits.count } if @post.id.present?
+    @audits = { post: @post.audits.count + @post.versions.count } if @post.id.present?
 
     editor_setup
     @page_title = 'Previewing: ' + @post.subject.to_s

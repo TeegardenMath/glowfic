@@ -114,7 +114,9 @@ class RepliesController < WritableController
       @unseen_replies = reply.post.replies.ordered.paginate(page: 1, per_page: 10)
       if last_seen_reply_order.present?
         @unseen_replies = @unseen_replies.where('reply_order > ?', last_seen_reply_order)
-        @audits = Audited::Audit.where(auditable_id: @unseen_replies.map(&:id)).group(:auditable_id).count
+        audits = Audited::Audit.where(auditable_id: @unseen_replies.map(&:id)).group(:auditable_id).count
+        versions = Reply::Version.where(item_id: @unseen_replies.map(&:id)).group(:item_id).count
+        @audits = audits.merge(versions) { |_, audit_count, version_count| audit_count + version_count }
       end
       most_recent_unseen_reply = @unseen_replies.last
 
@@ -189,7 +191,7 @@ class RepliesController < WritableController
         message: "Reply could not be updated because of the following problems:",
         array: @reply.errors.full_messages,
       }
-      @audits = { @reply.id => @post.audits.count }
+      @audits = { @reply.id => @reply.audits.count + @reply.versions.count }
       editor_setup
       render :edit
     else
@@ -295,7 +297,7 @@ class RepliesController < WritableController
     @written = written
     @post = @written.post
     @written.user = current_user unless @written.user
-    @audits = @written.id.present? ? { @written.id => @written.audits.count } : {}
+    @audits = @written.id.present? ? { @written.id => @written.audits.count + @written.versions.count } : {}
 
     @page_title = @post.subject
 
