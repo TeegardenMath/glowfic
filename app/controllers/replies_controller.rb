@@ -169,6 +169,8 @@ class RepliesController < WritableController
   end
 
   def history
+    @written = @reply
+    super
   end
 
   def edit

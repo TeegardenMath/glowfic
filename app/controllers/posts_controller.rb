@@ -164,6 +164,8 @@ class PostsController < WritableController
   end
 
   def history
+    @written = @post
+    super
   end
 
   def delete_history
