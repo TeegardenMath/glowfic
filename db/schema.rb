@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2022_10_13_004257) do
     t.string "remote_address"
     t.datetime "created_at"
     t.string "request_uuid"
+    t.integer "version_id"
     t.index ["associated_type", "associated_id"], name: "associated_index"
     t.index ["auditable_type", "auditable_id", "version"], name: "auditable_index"
     t.index ["created_at"], name: "index_audits_on_created_at"
