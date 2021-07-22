@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_173619) do
+ActiveRecord::Schema.define(version: 2021_07_21_143340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -247,6 +247,7 @@ ActiveRecord::Schema.define(version: 2020_04_16_173619) do
     t.datetime "read_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "notification_id"
     t.index ["recipient_id", "unread"], name: "index_messages_on_recipient_id_and_unread"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
     t.index ["thread_id"], name: "index_messages_on_thread_id"
