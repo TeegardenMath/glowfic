@@ -1349,14 +1349,11 @@ RSpec.describe Post do
       read_ignored.ignore(reader)
       read_ignored.mark_read(reader)
 
-      read_board.mark_read(reader, at_time: board_read.created_at + 1.second)
-
       ignored_board.ignore(reader)
-      read_board_ignored.mark_read(reader)
 
-      expect(Post.count).to eq(9)
-      expect(Post.not_ignored_by(reader).count).to eq(4)
-      expect(Post.not_ignored_by(reader)).to match_array([unread_post, read_post, board_read])
+      expect(Post.count).to eq(5)
+      expect(Post.not_ignored_by(reader).count).to eq(2)
+      expect(Post.not_ignored_by(reader)).to match_array([unread_post, read_post])
     end
   end
 
