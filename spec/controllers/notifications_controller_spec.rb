@@ -51,13 +51,13 @@ RSpec.describe NotificationsController do
       create(:block, blocking_user: user, blocked_user: blocked_user, hide_them: :posts)
       hidden_posts = create_list(:post, 2, user: blocked_user, authors_locked: true)
       expect(user.hidden_posts).to match_array(hidden_posts.map(&:id))
-      hidden_posts.each { |post| create(:notification, user: user, post: post)}
+      hidden_posts.each { |post| create(:notification, user: user, post: post) }
 
       blocking_user = create(:user)
       create(:block, blocking_user: blocking_user, blocked_user: user, hide_me: :all)
       blocked_posts = create_list(:post, 2, user: blocking_user)
       expect(user.blocked_posts).to match_array(blocked_posts.map(&:id))
-      blocked_posts.each { |post| create(:notification, user: user, post: post)}
+      blocked_posts.each { |post| create(:notification, user: user, post: post) }
 
       login_as(user)
       get :index

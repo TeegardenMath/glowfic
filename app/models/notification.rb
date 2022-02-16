@@ -8,7 +8,7 @@ class Notification < ApplicationRecord
   scope :unread, -> { where(unread: true) }
   scope :ordered, -> { order(created_at: :desc) }
 
-  scope :visible_to, -> (user) {
+  scope :visible_to, ->(user) {
     left_outer_joins(:post)
       .merge(Post.visible_to(user))
       .where.not(post_id: user.hidden_posts)
