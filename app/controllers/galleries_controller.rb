@@ -192,7 +192,7 @@ class GalleriesController < UploadingController
     if icons.any? { |i| !i.valid? }
       flash.now[:error] = {
         message: "Your icons could not be saved.",
-        array: []
+        array: [],
       }
 
       icons.each_with_index do |icon, index|
@@ -222,7 +222,7 @@ class GalleriesController < UploadingController
       render :add
     else
       flash[:success] = "Icons saved successfully."
-      redirect_to @gallery ? @gallery : user_gallery_path(id: 0, user_id: current_user.id)
+      redirect_to @gallery || user_gallery_path(id: 0, user_id: current_user.id)
     end
   end
 

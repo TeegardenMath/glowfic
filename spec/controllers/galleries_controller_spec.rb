@@ -796,8 +796,8 @@ RSpec.describe GalleriesController do
       let(:gallery) { create(:gallery, user: user) }
       let(:icons) do
         [
-          {keyword: 'test1', url: 'http://example.com/image3141.png', credit: 'test1'},
-          {keyword: 'test2', url: "https://d1anwqy6ci9o1i.cloudfront.net/users/#{user.id}/icons/nonsense-fakeimg.png"},
+          { keyword: 'test1', url: 'http://example.com/image3141.png', credit: 'test1' },
+          { keyword: 'test2', url: "https://d1anwqy6ci9o1i.cloudfront.net/users/#{user.id}/icons/nonsense-fakeimg.png" },
         ]
       end
 
