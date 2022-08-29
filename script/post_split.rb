@@ -32,7 +32,7 @@ def create_post(first_reply, old_post:, subject:)
   new_post = Post.new(first_reply.attributes.slice(*REPLY_ATTRS))
   new_post.skip_edited = true
   new_post.is_import = true
-  new_post.skip_written = true
+  new_post.written.delete
   new_post.assign_attributes(old_post.attributes.slice(*POST_ATTRS))
   new_post.subject = subject
   new_post.edited_at = first_reply.updated_at
