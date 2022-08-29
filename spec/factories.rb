@@ -58,7 +58,7 @@ FactoryBot.define do
     sequence :subject do |n|
       "test subject #{n}"
     end
-    content { "test content "}
+    content { "test content " }
 
     after(:build) do |post, evaluator|
       # create_written is called before factorybot sets the user

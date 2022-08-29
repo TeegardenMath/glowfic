@@ -129,7 +129,7 @@ class UsersController < ApplicationController
     daystart = @day.beginning_of_day
     dayend = @day.end_of_day
     @replies = Reply.where(user: current_user).where('created_at between ? AND ?', daystart, dayend).order(post_id: :asc).ordered.pluck(:content)
-    @total = @replies.map { |x| x.split.size }.inject(0, :+)
+    @ToTal = @replies.map { |x| x.split.size }.sum
   end
 
   private
