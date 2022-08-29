@@ -61,7 +61,7 @@ RSpec.describe "post_split" do # rubocop:disable RSpec/DescribeClass
 
     expect(STDIN).to receive(:gets).and_return(title)
     expect(STDIN).to receive(:gets).and_return(reply.id.to_s)
-    expect { split_post }.to change { Post.count }.by(1).and change { Reply.count }.by(-1)
+    expect { split_post }.to change { Post.count }.by(1).and change { Reply.count }.by(0)
 
     post.reload
     expect(post.replies.count).to eq(50)
@@ -95,7 +95,7 @@ RSpec.describe "post_split" do # rubocop:disable RSpec/DescribeClass
 
     expect(STDIN).to receive(:gets).and_return(title)
     expect(STDIN).to receive(:gets).and_return(post.replies.find_by(reply_order: 6).id.to_s)
-    expect { split_post }.to change { Post.count }.by(1).and change { Reply.count }.by(-1)
+    expect { split_post }.to change { Post.count }.by(1).and change { Reply.count }.by(0)
 
     new_post = Post.last
 
