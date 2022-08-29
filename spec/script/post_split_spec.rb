@@ -39,7 +39,7 @@ RSpec.describe "post_split" do # rubocop:disable RSpec/DescribeClass
       expect(post.subject).to eq(title)
       expect(post.replies.count).to eq(0)
       expect(post.content).to eq(reply.content)
-      expect(Reply.find_by(id: reply.id)).not_to be_present
+      expect(reply.reload).to eq(post.written)
     end
   end
 
@@ -81,7 +81,7 @@ RSpec.describe "post_split" do # rubocop:disable RSpec/DescribeClass
     expect(new_post.last_user_id).to eq(last.user_id)
     expect(new_post.tagged_at).to eq(last.created_at)
     expect(new_post.replies.ordered.first).to eq(next_reply)
-    expect(Reply.find_by(id: reply.id)).not_to be_present
+    expect(reply.reload).to eq(new_post.written)
   end
 
   it "does not affect other posts" do
