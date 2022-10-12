@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class AliasesController < ApplicationController
   before_action :login_required
-  before_action :find_character
+  before_action :find_parent
   before_action :require_permission
   before_action :find_model, only: :destroy
 
@@ -45,7 +45,7 @@ class AliasesController < ApplicationController
 
   private
 
-  def find_character
+  def find_parent
     return if (@character = Character.find_by(id: params[:character_id]))
     flash[:error] = "Character could not be found."
     redirect_to user_characters_path(current_user)
