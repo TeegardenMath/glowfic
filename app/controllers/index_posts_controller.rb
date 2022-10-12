@@ -27,7 +27,7 @@ class IndexPostsController < ApplicationController
     end
 
     flash[:success] = "Post added to index!"
-    redirect_to @index_post.index
+    redirect_to @index
   end
 
   def edit
@@ -44,7 +44,7 @@ class IndexPostsController < ApplicationController
     end
 
     flash[:success] = "Index post has been updated."
-    redirect_to @index_post.index
+    redirect_to @index
   end
 
   def destroy
@@ -58,7 +58,7 @@ class IndexPostsController < ApplicationController
     else
       flash[:success] = "Post removed from index."
     end
-    redirect_to @index_post.index
+    redirect_to @index
   end
 
   private
@@ -87,8 +87,8 @@ class IndexPostsController < ApplicationController
   end
 
   def require_edit_permission
-    return if @index_post.index.editable_by?(current_user)
+    return if @index.editable_by?(current_user)
     flash[:error] = "You do not have permission to edit this index."
-    redirect_to @index_post.index
+    redirect_to @index
   end
 end
