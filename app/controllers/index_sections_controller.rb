@@ -5,7 +5,7 @@ class IndexSectionsController < ApplicationController
   before_action :find_model, except: [:new, :create]
   before_action :find_parent, except: :show
   before_action :require_create_permission, only: [:new, :create]
-  before_action :require_permission, except: [:new, :create, :show]
+  before_action :require_edit_permission, except: [:new, :create, :show]
 
   def new
     @page_title = "New Index Section"
@@ -87,7 +87,7 @@ class IndexSectionsController < ApplicationController
     redirect_to @index
   end
 
-  def require_permission
+  def require_edit_permission
     return if @index.editable_by?(current_user)
     flash[:error] = "You do not have permission to edit this index."
     redirect_to @index
