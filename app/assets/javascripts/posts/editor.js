@@ -246,7 +246,7 @@ function toggleEditor() {
     } else {
       setupTinyMCE();
     }
-  } else if (this.id === 'md' ) {
+  } else if (this.id === 'md') {
     $("#html").removeClass('selected');
     $("#rtf").removeClass('selected');
     $("#editor_mode").val('md');
