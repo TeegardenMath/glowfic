@@ -135,6 +135,11 @@ span.badge {
   a:hover { color: $font_color_header_link_hover; }
 }
 
+#content .tox-toolbar {
+  background-color: $bg_color_mce_panel;
+  border-bottom-color: $border_color_mce_panel;
+}
+
 // - characters and templates
 .single-description {
   background-color: $bg_color_descriptions;
