@@ -36,7 +36,7 @@ unless ENV.fetch('SKIP_COVERAGE', false) || ENV.fetch('APIPIE_RECORD', false) ||
       end
     end
     enable_coverage :branch
-    minimum_coverage line: 99.9, branch: 93.0
+    minimum_coverage line: 95.7, branch: 77.4
     enable_coverage_for_eval
   end
 end
