@@ -165,9 +165,6 @@ module GeneratedUrlHelpersModule
   def edit_post_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_rails_conductor_inbound_email_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def edit_reply_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

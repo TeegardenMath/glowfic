@@ -6,8 +6,13 @@
 
 class DeleteIconFromS3Job
   class << self
-    sig { params(s3_key: T.untyped).returns(T.any(DeleteIconFromS3Job, FalseClass)) }
-    def perform_later(s3_key); end
+    sig do
+      params(
+        s3_key: T.untyped,
+        block: T.nilable(T.proc.params(job: DeleteIconFromS3Job).void)
+      ).returns(T.any(DeleteIconFromS3Job, FalseClass))
+    end
+    def perform_later(s3_key, &block); end
 
     sig { params(s3_key: T.untyped).returns(T.untyped) }
     def perform_now(s3_key); end

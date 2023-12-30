@@ -190,10 +190,11 @@ class ActionMailbox::InboundEmail
         load: T.untyped,
         error_on_ignore: T.untyped,
         order: Symbol,
+        use_ranges: T.untyped,
         block: T.nilable(T.proc.params(object: PrivateRelation).void)
       ).returns(T.nilable(::ActiveRecord::Batches::BatchEnumerator))
     end
-    def in_batches(of: 1000, start: nil, finish: nil, load: false, error_on_ignore: nil, order: :asc, &block); end
+    def in_batches(of: 1000, start: nil, finish: nil, load: false, error_on_ignore: nil, order: :asc, use_ranges: nil, &block); end
 
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
@@ -492,6 +493,9 @@ class ActionMailbox::InboundEmail
     def not_processing(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def null_relation?(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def offset(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -520,6 +524,9 @@ class ActionMailbox::InboundEmail
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def references(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def regroup(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def reorder(*args, &blk); end
@@ -568,6 +575,9 @@ class ActionMailbox::InboundEmail
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelationWhereChain) }
     def where(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with_attached_raw_email(*args, &blk); end
@@ -671,6 +681,9 @@ class ActionMailbox::InboundEmail
     def not_processing(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def null_relation?(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def offset(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -699,6 +712,9 @@ class ActionMailbox::InboundEmail
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def references(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def regroup(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def reorder(*args, &blk); end
@@ -731,6 +747,9 @@ class ActionMailbox::InboundEmail
     def where(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with_attached_raw_email(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -742,6 +761,9 @@ class ActionMailbox::InboundEmail
     include GeneratedAssociationRelationMethods
 
     Elem = type_member { { fixed: ::ActionMailbox::InboundEmail } }
+
+    sig { returns(T::Array[::ActionMailbox::InboundEmail]) }
+    def to_a; end
 
     sig { returns(T::Array[::ActionMailbox::InboundEmail]) }
     def to_ary; end
@@ -835,6 +857,9 @@ class ActionMailbox::InboundEmail
     def target; end
 
     sig { returns(T::Array[::ActionMailbox::InboundEmail]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ActionMailbox::InboundEmail]) }
     def to_ary; end
   end
 
@@ -843,6 +868,9 @@ class ActionMailbox::InboundEmail
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::ActionMailbox::InboundEmail } }
+
+    sig { returns(T::Array[::ActionMailbox::InboundEmail]) }
+    def to_a; end
 
     sig { returns(T::Array[::ActionMailbox::InboundEmail]) }
     def to_ary; end

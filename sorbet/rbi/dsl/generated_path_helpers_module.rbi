@@ -165,9 +165,6 @@ module GeneratedPathHelpersModule
   def edit_post_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_rails_conductor_inbound_email_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def edit_reply_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

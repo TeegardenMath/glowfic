@@ -13,10 +13,11 @@ class ScrapePostJob
         section_id: T.untyped,
         status: T.untyped,
         threaded: T.untyped,
-        importer_id: T.untyped
+        importer_id: T.untyped,
+        block: T.nilable(T.proc.params(job: ScrapePostJob).void)
       ).returns(T.any(ScrapePostJob, FalseClass))
     end
-    def perform_later(url, board_id, section_id, status, threaded, importer_id); end
+    def perform_later(url, board_id, section_id, status, threaded, importer_id, &block); end
 
     sig do
       params(

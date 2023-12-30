@@ -6,8 +6,14 @@
 
 class SplitPostJob
   class << self
-    sig { params(reply_id: T.untyped, new_subject: T.untyped).returns(T.any(SplitPostJob, FalseClass)) }
-    def perform_later(reply_id, new_subject); end
+    sig do
+      params(
+        reply_id: T.untyped,
+        new_subject: T.untyped,
+        block: T.nilable(T.proc.params(job: SplitPostJob).void)
+      ).returns(T.any(SplitPostJob, FalseClass))
+    end
+    def perform_later(reply_id, new_subject, &block); end
 
     sig { params(reply_id: T.untyped, new_subject: T.untyped).returns(T.untyped) }
     def perform_now(reply_id, new_subject); end

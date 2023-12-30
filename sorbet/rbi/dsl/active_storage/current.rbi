@@ -5,19 +5,17 @@
 # Please instead update this file by running `bin/tapioca dsl ActiveStorage::Current`.
 
 class ActiveStorage::Current
-  sig { returns(T.untyped) }
-  def url_options; end
-
-  sig { params(value: T.untyped).returns(T.untyped) }
-  def url_options=(value); end
+  include GeneratedAttributeMethods
 
   class << self
     sig { returns(T.untyped) }
-    def host; end
+    def url_options; end
 
-    sig { params(host: T.untyped).returns(T.untyped) }
-    def host=(host); end
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def url_options=(value); end
+  end
 
+  module GeneratedAttributeMethods
     sig { returns(T.untyped) }
     def url_options; end
 

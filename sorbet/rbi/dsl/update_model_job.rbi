@@ -11,10 +11,11 @@ class UpdateModelJob
         klass: T.untyped,
         where_vals: T.untyped,
         new_attrs: T.untyped,
-        user_id: T.untyped
+        user_id: T.untyped,
+        block: T.nilable(T.proc.params(job: UpdateModelJob).void)
       ).returns(T.any(UpdateModelJob, FalseClass))
     end
-    def perform_later(klass, where_vals, new_attrs, user_id = T.unsafe(nil)); end
+    def perform_later(klass, where_vals, new_attrs, user_id = T.unsafe(nil), &block); end
 
     sig do
       params(
