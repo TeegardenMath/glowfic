@@ -110,8 +110,8 @@ RSpec.describe RepliesController, 'PUT update' do
     expect(reply_post.replies.ordered.last).not_to eq(reply)
     reply_post.mark_read(reply_post.user)
     put :update, params: { id: reply.id, reply: { content: 'new content' } }
-    expect(flash[:success]).to eq("Post updated")
-    expect(reply.reload.reply_order).to eq(1)
+    expect(flash[:success]).to eq("Reply updated.")
+    expect(reply.reload.reply_order).to eq(2)
   end
 
   it "preserves NPC" do
